@@ -2,7 +2,7 @@
 
 # Project Name: RUBY - My Enumerables
 
-Implementing enumerables in Ruby comparable to the existing enumerables present.
+Implementing enumerables in Ruby comparable to the existing enumerable methods.
 
 ## Skills Revived & Learned:
 
@@ -17,8 +17,6 @@ Implementing enumerables in Ruby comparable to the existing enumerables present.
 
 - Version Control, Git Flow
 - RUBY Core, Enumerables, Methods, Yield, Blocks
-
-![screenshot]()
 
 ## Built With
 
