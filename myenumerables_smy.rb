@@ -124,5 +124,40 @@ module Enumerable
   # # arr5 = %w[ant bat cat]
   # p arr5.sm_any?(/z/)
 
+  # sm_none: implement the enumerable 'none?'
+  # yields: returns False / TRUE if 'none of the' elements match conditional filter 
+  def sm_none?(default = nil)
+    # Check the TYPE of argument received : block, class, array etc
+    if block_given?
+      sm_each { |enum| return false if yield(enum) == true }
+    elsif (default.is_a? Class)
+      sm_each { |enum| return false unless !(enum.is_a? default) }
+    elsif (default.is_a? Regexp)
+      sm_each { |enum| return false unless !default.match(enum) }
+    elsif (default.nil?)
+      sm_each { |enum| return false unless !enum }
+    else
+      return "Case: didn't handle yet."
+    end
+    # after all cases are handled to return false return true implicitly
+    true
+  end
+  # TEST : -------------------------------
+  # arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'a']
+  # p arr.sm_none? { |x| x == 15 }
+  # p arr.sm_none? { |x| x.is_a? Float }
+  # arr2 = %w[pea ants bears cats]
+  # p arr2.sm_none? { |word| word.length > 30 } 
+  # arr3 = [1.0, 2.0, 3.14]
+  # p arr3.sm_none?(String)
+  # p arr2.sm_none?(Numeric)
+  # arr4 = [true, nil, false]
+  # p arr4.sm_none?
+  # p [].sm_none?
+  # arr5 = %w[ant bears cat]
+  # p arr5.sm_none?(/z/)
 
+
+
+  
 end
