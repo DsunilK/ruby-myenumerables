@@ -31,35 +31,50 @@ module Enumerable
   # my_all? ------------
   def my_all?(parameter=nil)
     self.my_each do |x|
-    if block_given?
-      return false unless yield x
-    elseif parameter.is_a?(Regexp)
-      return false unless parameter.match?(x)
-    else if parameter.is_a?(Class)
-      return false unless x.is_a?(parameter)
-    else
-      return false unless x
+      if block_given?
+        return false unless yield x
+      elsif parameter.is_a?(Regexp)
+        return false unless parameter.match?(x)
+      elsif parameter.is_a?(Class)
+        return false unless x.is_a?(parameter)
+      else
+        return false unless x
+      end
     end
     true
   end
   # my_any?
   def my_any?
-
     self.my_each do |x|
-      return true if yield x
+      if block_given?
+        return true if yield x
+      elsif parameter.is_a?(Class)
+        return true if x.is_a?(parameter)
+      elsif parameter.is_a?(Regexp)
+        return true if parameter.match?(x)
+      else
+        return true if x
+      end
     end
     false
   end
   # my_none?
   def my_none?
     self.my_each do |x|
-      return false if yield x
+      if block_given?
+        return false if yield x
+      elsif parameter.is_a?(Class)
+        return false if x.is_a?(parameter)
+      elsif parameter.is_a?(Regexp)
+        return false if parameter.match?(x)
+      else
+        return false if x
+      end
     end
     true
-
   end
   # my_count
-  self.my_each_with_index {|n, i|    }
+
   # my_map
   def my_map
     return self.dup unless block_given?
@@ -81,7 +96,40 @@ maparr = exmaplearr.my_map
 maparr2 = exmaplearr.my_map{|x| x**2}
 p maparr
 p maparr2
-strings = %w[bacon orange apple]
-if strings.all?{|str| str.length == 5}
+strings = %w[bacon orang apple]
+if strings.my_all?{|str| str.length == 5}
   puts "yey"
 end
+# Initialize an enumerable
+enu1 = [10, 19, 18]
+
+# checks if all numbers are greater
+# than 4 or not
+res1 = enu1.my_all? { |num| num>4}
+
+# prints the result
+puts res1
+
+
+# ch__LINE__ecks if all numbers are greater
+# than 4 or not
+res2 = enu1.my_all? { |num| num>=15}
+
+# prints the result
+puts res2
+# Initialize an enumerable
+enu3 = [10, 19, 20]
+
+# Checks
+res3 = enu3.my_all?(Numeric)
+
+# prints the result
+puts res3
+
+# Initialize
+enu4 = [nil, nil]
+
+# Checks
+res4 = enu4.my_all?
+# prints the result
+puts res4
