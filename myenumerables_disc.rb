@@ -97,7 +97,59 @@ module Enumerable
     retarr
   end
   # my_inject
+  def my_inject(initial = nil, sym = nil)
+    raise LocalJumpError if initial.nil? && sym.nil? && !block_given?
+    if initial.is_a? Symbol
+      sym = initial
+      initial = nil
+    end
+    if is_a? Array
+      if block_given?
+        if initial.nil?
+          accum = self[0]
+        else
+          accum = yield(initial, self[0])
+        end
+      end
+      unless sym.nil?
+        if initial.nil?
+          accum = self[0]
+        else
+          accum = initial.public_send(sym, self[0])
+        end
+      end
 
+      x = 1
+      while x < length
+        accum = accum.public_send(sym, self[x]) unless sym.nil?
+        accum = yield accum, self[x] if block_given?
+        x += 1
+      end
+    end
+    if is_a? Range
+      if block_given?
+        if initial.nil?
+          accum = self.begin
+        else
+          accum = yield(initial, self.begin)
+        end
+      end
+      unless sym.nil?
+        if initial.nil?
+          accum = self.begin
+        else
+          accum = initial.public_send(sym, self.begin)
+        end
+      end
+
+      x = Range.new(self.begin + 1, self.end)
+      for i in x do
+        accum = accum.public_send(sym, i) unless sym.nil?
+        accum = yield accum, i if block_given?
+      end
+    end
+    return accum
+  end
 end
 
 exmaplearr = [4, 5, 6, 7]
@@ -173,3 +225,6 @@ enu12 = [12, 18, 16, 18]
 # returns enumerator
 res12 = enu12.count { |el| el > 13}
 p res12
+
+p [3, 6, 10].my_inject() {|sum, number| sum + number}
+p [3, 6, 10, 13].inject(:+)
