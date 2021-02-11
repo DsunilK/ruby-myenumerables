@@ -22,6 +22,7 @@ module Enumerable
   # arr.sm_each do |value|
   #   p value
   # end
+  
   # each_with_index: implement the enumerable 'each_with_index'
   # yields: 'index' & 'value' to the block
   def sm_each_with_index
@@ -157,7 +158,17 @@ module Enumerable
   # arr5 = %w[ant bears cat]
   # p arr5.sm_none?(/z/)
 
+  # sm_count: implement the enumerable 'count'
+  # yields: 'counts' matching items to the given block
+  def sm_count
+    return to_enum(:sm_count) unless block_given?
+    count=0
+    sm_each { |enum| count+=1 if yield(enum) }
+    count
+  end
+  # TEST : -------------------------------
+  # arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # p arr.sm_count {|x| x%3==0}
 
 
-  
 end
