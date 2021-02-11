@@ -44,7 +44,7 @@ module Enumerable
     true
   end
   # my_any?
-  def my_any?
+  def my_any?(parameter=nil)
     self.my_each do |x|
       if block_given?
         return true if yield x
@@ -59,7 +59,7 @@ module Enumerable
     false
   end
   # my_none?
-  def my_none?
+  def my_none?(parameter = nil)
     self.my_each do |x|
       if block_given?
         return false if yield x
@@ -74,7 +74,19 @@ module Enumerable
     true
   end
   # my_count
-
+  def my_count(parameter = nil)
+    res = 0
+    self.my_each do |x|
+      if block_given?
+        res += 1 if yield x
+      elsif parameter.nil?
+        res += 1
+      else
+        res += 1 if parameter == x
+      end
+    end
+    res
+  end
   # my_map
   def my_map
     return self.dup unless block_given?
@@ -90,6 +102,8 @@ end
 
 exmaplearr = [4, 5, 6, 7]
 exmaplearr.my_each{|x| puts x + 2}
+[4, 5, 6, 7].my_each{|x| puts x + 3}
+p exmaplearr.my_each
 newarr = exmaplearr.my_select{|num| num>5}
 p newarr
 maparr = exmaplearr.my_map
@@ -133,3 +147,29 @@ enu4 = [nil, nil]
 res4 = enu4.my_all?
 # prints the result
 puts res4
+
+p 10.class
+
+# Initialize
+enu10 = [12, 18]
+
+# returns enumerator
+res10 = enu10.my_count
+p res10
+# Ruby program for count method in Enumerable
+
+# Initialize
+enu11 = [12, 18, 2]
+
+# returns enumerator
+res11 = enu11.count(12)
+p res11
+
+# Ruby program for count method in Enumerable
+
+# Initialize
+enu12 = [12, 18, 16, 18]
+
+# returns enumerator
+res12 = enu12.count { |el| el > 13}
+p res12
