@@ -14,7 +14,7 @@ module Enumerable
   #   p value
   # end
   def sm_each
-    return to_enum(:sm_each) unless block_given?
+    # return to_enum(:sm_each) unless block_given?
     i = 0
     while i < self.length
       yield(self[i])
@@ -31,7 +31,8 @@ module Enumerable
   #   p "Index: #{index+1} Value. #{value}"
   # end
   def sm_each_with_index
-    return to_enum(:sm_each) unless block_given?
+    # p arg
+    return to_enum(:sm_each_with_index) unless block_given?
     i = 0
     while i < self.length
       yield(self[i], i)
@@ -53,16 +54,22 @@ module Enumerable
     temp
   end
 
-  # sm_all?: implement the enumerable each
+  # sm_all?: implement the enumerable 'all?'
   # yields: Boolean, if result is TRUE after executing the block statements
   def sm_all?(default = nil)
-    return to_enum(:sm_each) unless block_given?
+    # Check the TYPE of argument received : block, class, array etc
     if block_given?
       sm_each { |enum| return false if yield(enum) == false }
-      return true
-    elsif self.is_a? Class
-      sm_each { |enum| return false if yield(enum) == false }      
+    elsif (default.is_a? Class)
+      sm_each { |enum| return false unless enum.is_a? default }
+    elsif (default.is_a? Regexp)
+      sm_each { |enum| return false unless default.match(enum) }
+    elsif (default.nil?)
+      sm_each { |enum| return false unless enum }
+    else
+      return "Case: didnt handle"
     end
+    # after all cases are handled to return false we can return true implicitly
     true
   end
 
