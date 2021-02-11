@@ -1,3 +1,7 @@
+# rubocop:disable Style/CaseEquality, Style/StringLiterals, Style/For
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+
 module Enumerable
   # each
   def my_each
@@ -17,23 +21,45 @@ module Enumerable
   end
   # my_select
   def my_select
+    return enum_for(:each) unless block_given?
     selected = []
     for i in self
       selected.push(i) if yield i
     end
-    return selected
+    selected
   end
   # my_all? ------------
-  def my_all?
-
+  def my_all?(parameter=nil)
     self.my_each do |x|
+    if block_given?
       return false unless yield x
+    elseif parameter.is_a?(Regexp)
+      return false unless parameter.match?(x)
+    else if parameter.is_a?(Class)
+      return false unless x.is_a?(parameter)
+    else
+      return false unless x
     end
     true
   end
   # my_any?
+  def my_any?
+
+    self.my_each do |x|
+      return true if yield x
+    end
+    false
+  end
   # my_none?
+  def my_none?
+    self.my_each do |x|
+      return false if yield x
+    end
+    true
+
+  end
   # my_count
+  self.my_each_with_index {|n, i|    }
   # my_map
   def my_map
     return self.dup unless block_given?
