@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
+
 # ENUMERABLE METHODS: Own implementation of enumerable methods behaviour
 module Enumerable
   # Nothing
@@ -183,5 +185,6 @@ module Enumerable
   # tarr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   # p (1..4).sm_map { |i| i*i }
   # p tarr.sm_map { |i| i*i }
-
 end
+
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
