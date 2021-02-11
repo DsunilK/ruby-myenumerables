@@ -10,9 +10,11 @@ module Enumerable
   # yields: 'value' to the block
   def sm_each
     # return to_enum(:sm_each) unless block_given?
+    arr = self if self.class == Array
+    arr = self.to_a if self.class == Range
     i = 0
-    while i < self.length
-      yield(self[i])
+    while i < arr.length
+      yield(arr[i])
       i += 1
     end
     self
@@ -26,13 +28,13 @@ module Enumerable
   # each_with_index: implement the enumerable 'each_with_index'
   # yields: 'index' & 'value' to the block
   def sm_each_with_index
-    # p arg
     return to_enum(:sm_each_with_index) unless block_given?
     i = 0
     while i < self.length
       yield(self[i], i)
       i += 1
     end
+
     self
   end
   # TEST : -------------------------------
@@ -44,13 +46,9 @@ module Enumerable
   # sm_select: implement the enumerable 'select'
   # yields: Array of value selected on executing the block statements
   def sm_select
-    return to_enum(:sm_each) unless block_given?
+    return to_enum(:sm_select) unless block_given?
     temp=[]
-    i = 0
-    while i < self.length
-        temp.append(self[i]) if yield(self[i])
-      i += 1
-    end
+    sm_each {|x| temp.append(x) if yield(x) }
     temp
   end
   # TEST : -------------------------------
@@ -170,5 +168,17 @@ module Enumerable
   # arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   # p arr.sm_count {|x| x%3==0}
 
+  # sm_map: implement the enumerable 'map'
+  # yields: returns and ARRAY executing each item with given block
+  def sm_map
+    return to_enum(:sm_map) unless block_given?    
+    map_arr=[]
+    sm_each { |enum| map_arr.append(yield(enum)) }
+    map_arr
+  end
+  # TEST : -------------------------------
+  # tarr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  # p (1..4).sm_map { |i| i*i }
+  # p tarr.sm_map { |i| i*i }
 
 end
