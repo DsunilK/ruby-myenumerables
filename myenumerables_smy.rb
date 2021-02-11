@@ -14,6 +14,7 @@ module Enumerable
   #   p value
   # end
   def sm_each
+    return to_enum(:sm_each) unless block_given?
     i = 0
     while i < self.length
       yield(self[i])
@@ -30,6 +31,7 @@ module Enumerable
   #   p "Index: #{index+1} Value. #{value}"
   # end
   def sm_each_with_index
+    return to_enum(:sm_each) unless block_given?
     i = 0
     while i < self.length
       yield(self[i], i)
@@ -41,6 +43,7 @@ module Enumerable
   # sm_select: implement the enumerable 'select'
   # yields: Array, after selecting value after executing the block statements
   def sm_select
+    return to_enum(:sm_each) unless block_given?
     temp=[]
     i = 0
     while i < self.length
@@ -52,9 +55,15 @@ module Enumerable
 
   # sm_all?: implement the enumerable each
   # yields: Boolean, if result is TRUE after executing the block statements
-  def sm_all?
-    sm_each { |enum| return false if yield(enum) == false }
-    return true
+  def sm_all?(default = nil)
+    return to_enum(:sm_each) unless block_given?
+    if block_given?
+      sm_each { |enum| return false if yield(enum) == false }
+      return true
+    elsif self.is_a? Class
+      sm_each { |enum| return false if yield(enum) == false }      
+    end
+    true
   end
 
 end
