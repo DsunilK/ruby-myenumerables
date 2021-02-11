@@ -88,11 +88,15 @@ module Enumerable
     res
   end
   # my_map
-  def my_map
-    return self.dup unless block_given?
+  def my_map(param = nil)
+    return self.dup unless block_given? || param.is_a?(Proc)
     retarr = []
     self.my_each do |x|
-      retarr.push(yield (x))
+      if param.is_a?(Proc)
+        retarr.push(param.call(x))
+      else
+        retarr.push(yield (x))
+      end
     end
     retarr
   end
