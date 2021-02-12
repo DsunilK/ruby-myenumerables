@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
-
 # MY ENUMERABLES
 module Enumerable
   # each
@@ -178,5 +176,3 @@ def multiply_els(arr)
 end
 numbers = [2, 4, 5]
 multiply_els(numbers)
-
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
