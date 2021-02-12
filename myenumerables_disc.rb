@@ -42,8 +42,9 @@ module Enumerable
         return false unless x.is_a?(parameter)
       elsif parameter.nil?
         return false unless x
+      else
+        return false unless x == parameter
       end
-    end
     true
   end
 
@@ -57,7 +58,9 @@ module Enumerable
       elsif parameter.is_a?(Regexp)
         return true if parameter.match?(x)
       elsif parameter.nil?
-        return true unless parameter
+        return true if x
+      else
+        return true if x == parameter
       end
     end
     false
@@ -73,7 +76,9 @@ module Enumerable
       elsif parameter.is_a?(Regexp)
         return false if parameter.match?(x)
       elsif parameter.nil?
-        return false if parameter
+        return false if x
+      else
+        return false if x == parameter
       end
     end
     true
