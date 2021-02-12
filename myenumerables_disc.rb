@@ -72,8 +72,8 @@ module Enumerable
         return false if x.is_a?(parameter)
       elsif parameter.is_a?(Regexp)
         return false if parameter.match?(x)
-      elsif x
-        return false
+      elsif parameter.nil?
+        return false if parameter
       end
     end
     true
