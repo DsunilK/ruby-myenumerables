@@ -43,6 +43,7 @@ module Enumerable
       else
         return false unless x == parameter
       end
+    end
     true
   end
 
