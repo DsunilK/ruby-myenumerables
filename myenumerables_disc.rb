@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
+
 # MY ENUMERABLES
 module Enumerable
   # each
@@ -58,8 +60,8 @@ module Enumerable
         return true if parameter.match?(x)
       elsif parameter.nil?
         return true if x
-      else
-        return true if x == parameter
+      elsif x == parameter
+        return true
       end
     end
     false
@@ -76,8 +78,8 @@ module Enumerable
         return false if parameter.match?(x)
       elsif parameter.nil?
         return false if x
-      else
-        return false if x == parameter
+      elsif x == parameter
+        return false
       end
     end
     true
@@ -177,3 +179,5 @@ def multiply_els(arr)
 end
 numbers = [2, 4, 5]
 multiply_els(numbers)
+
+# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
