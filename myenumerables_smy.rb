@@ -2,7 +2,7 @@
 
 # ENUMERABLE METHODS: Own implementation of enumerable methods behaviour
 module Enumerable
- # sm_each: implement the enumerable 'each'
+  # sm_each: implement the enumerable 'each'
   # yields: 'value' to the block
   def sm_each
     # return to_enum(:sm_each) unless block_given?
