@@ -40,7 +40,7 @@ module Enumerable
         return false unless parameter.match?(x)
       elsif parameter.is_a?(Class)
         return false unless x.is_a?(parameter)
-      else
+      elsif parameter.nil?
         return false unless x
       end
     end
@@ -56,8 +56,8 @@ module Enumerable
         return true if x.is_a?(parameter)
       elsif parameter.is_a?(Regexp)
         return true if parameter.match?(x)
-      elsif x
-        return true
+      elsif parameter.nil?
+        return true unless parameter
       end
     end
     false
