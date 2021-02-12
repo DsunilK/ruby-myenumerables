@@ -174,17 +174,55 @@ module Enumerable
 
   # sm_map: implement the enumerable 'map'
   # yields: returns and ARRAY executing each item with given block
-  def sm_map
-    return to_enum(:sm_map) unless block_given?
+  def sm_map(proc = nil)
+    return to_enum(:sm_map) unless block_given? || proc
 
     map_arr = []
-    sm_each { |enum| map_arr.append(yield(enum)) }
+    if proc
+      sm_each { |enum| map_arr.append(proc.call(enum)) }
+    else
+      sm_each { |enum| map_arr.append(yield(enum)) }
+    end
+
     map_arr
   end
   # TEST : -------------------------------
   # tarr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   # p (1..4).sm_map { |i| i*i }
   # p tarr.sm_map { |i| i*i }
+  # square = Proc.new {|x| x**2 }
+  # PROC will be executed & Block ignored
+  # p (1..4).sm_map(square) {|y| y+1 }
+  # Block will be executed
+  # p (1..4).sm_map {|x| x**2 }
+
+  # sm_inject: performs the actions like inject/reduce methods
+  # yields: final total/string result of the BLOCK processed or Symbols
+  def sm_inject(collect = nil)
+    if block_given?
+      sm_each do |enum|
+        collect = collect.nil? ? enum : yield(collect, enum)
+      end
+    end
+    collect
+  end
+  # TEST : ------------------------------
+  # Below cases are handled, however outside the scope of the asignment
+  # string = %w{ cat sheep bear }
+  # p string.sm_inject { |memo, word| memo.length > word.length ? memo : word }
+  # p arr.sm_inject { |result, element| result * element }
+  # p (1..5).sm_inject(:+)
+  # p arr.sm_inject(:+)
+  # p arr.sm_inject(10, :+)
+  # p arr.sm_inject { |memo, word| memo.length > word.length ? memo : word }
 end
+
+def multiply_els(arr)
+  # Can Provide the BLOCK
+  out = (arr.sm_inject { |result, element| (result * element) })
+  p out
+end
+numbers = [2, 4, 5]
+multiply_els(numbers)
 
 # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
