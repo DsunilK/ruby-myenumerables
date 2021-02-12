@@ -1,6 +1,5 @@
-# frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # ENUMERABLE METHODS: Own implementation of enumerable methods behaviour
 module Enumerable
@@ -225,4 +224,4 @@ end
 numbers = [2, 4, 5]
 multiply_els(numbers)
 
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
