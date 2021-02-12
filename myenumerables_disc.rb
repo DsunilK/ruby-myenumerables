@@ -1,4 +1,3 @@
-
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
 
 # MY ENUMERABLES

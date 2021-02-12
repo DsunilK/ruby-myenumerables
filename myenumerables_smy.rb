@@ -1,4 +1,3 @@
-
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 # ENUMERABLE METHODS: Own implementation of enumerable methods behaviour
