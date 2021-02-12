@@ -96,7 +96,7 @@ module Enumerable
 
   # my_map
   def my_map(param = nil)
-    return dup unless block_given? || param.is_a?(Proc)
+    return to_enum(:my_map) unless block_given? || param
 
     retarr = []
     my_each do |x|
@@ -165,5 +165,13 @@ module Enumerable
     accum
   end
 end
+
+def multiply_els(arr)
+  # Can Provide the BLOCK
+  out = (arr.my_inject { |result, element| (result * element) })
+  p out
+end
+numbers = [2, 4, 5]
+multiply_els(numbers)
 
 # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
