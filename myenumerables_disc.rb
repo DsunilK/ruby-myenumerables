@@ -4,31 +4,44 @@
 module Enumerable
   # each
   def my_each(&block)
-    return enum_for(:each) unless block_given?
+    return enum_for(:my_each) unless block_given?
 
-    each(&block)
+    # my_each(&block)
+    arr = self if instance_of?(Array)
+    arr = to_a if instance_of?(Range)
+    i = 0
+    while i < arr.length
+      yield(arr[i])
+      i += 1
+    end
+    self
   end
 
   # my_each_with_index
   def my_each_with_index
-    return enum_for(:each) unless block_given?
+    return enum_for(:my_each) unless block_given?
 
     myindex = 0
-    each do |i|
+    my_each do |i|
       yield i, myindex
       myindex += 1
     end
+    self
   end
 
   # my_select
   def my_select
-    return enum_for(:each) unless block_given?
+    return enum_for(:my_each) unless block_given?
 
     selected = []
-    each do |i|
+    my_each do |i|
       selected.push(i) if yield i
     end
     selected
+  end
+  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  arr.my_each_with_index do |value, index|
+    p "Index: #{index+1} Value. #{value}"
   end
 
   # my_all? ------------
