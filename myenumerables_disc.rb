@@ -3,7 +3,7 @@
 # MY ENUMERABLES
 module Enumerable
   # each
-  def my_each(&block)
+  def my_each(*)
     return enum_for(:my_each) unless block_given?
 
     # my_each(&block)
@@ -38,10 +38,6 @@ module Enumerable
       selected.push(i) if yield i
     end
     selected
-  end
-  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  arr.my_each_with_index do |value, index|
-    p "Index: #{index+1} Value. #{value}"
   end
 
   # my_all? ------------
