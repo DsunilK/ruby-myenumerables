@@ -183,7 +183,7 @@ describe 'Enumerable Module' do
       end
     end
   end
-  
+
   describe 'RSPEC# - Method: #my_count' do
     let(:block) { proc { |x| x > 2 } }
     it '1. I/P-Array: returns the number of items' do
