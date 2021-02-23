@@ -29,13 +29,13 @@ IMPLEMENTED METHODS
 
 ### Learning Goals:
 
-- Version Control, Git Flow
-- RUBY Core, Enumerables, Methods, Yield, Blocks
+- Version Control, Git Flow, RSPEC Test Framework
+- RUBY Core, Enumerables, Methods, Yield, Blocks, TDD
 
 ## Built With
 
 - Major languages: RUBY 3
-- Frameworks: Git flow
+- Frameworks: Git flow, RSpec
 
 ## Steps to Clone/Customize the Website Template
 
@@ -44,17 +44,22 @@ IMPLEMENTED METHODS
 
 ## Authors
 
-👤 **Shabbir**
+🧑‍💻 **Shabbir**
 
 - GitHub: [@smy5152](https://github.com/smy5152)
 - Twitter: [@smy5152](https://twitter.com/smy5152)
 - LinkedIn: [Shabbir Yamani](https://www.linkedin.com/in/shabbirmyamani/)
 
-👤 **Diego**
+🧑‍💻 **Diego**
 
 - GitHub: [@disc3110](https://github.com/disc3110)
 - Twitter: [@disc3110](https://twitter.com/disc3110)
 - LinkedIn: [@diego-solis-277651184](https://www.linkedin.com/in/diego-solis-277651184/)
+
+🧑‍💻 **Sunil Kumar**
+- GitHub: [@DsunilK](https://github.com/DsunilK)
+- Linkedin: [@DsunilK](https://www.linkedin.com/in/dsunilk/)
+- Twiter: [@DsunilK](https://twitter.com/D_sunil_K)
 
 ## Show your support
 
