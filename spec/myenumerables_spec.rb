@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 # spec/myenumerables_spec.rb
+# rubocop:disable Metrics/BlockLength
 
 require 'rspec'
 require_relative '../myenumerables'
@@ -271,3 +274,5 @@ describe 'Enumerable Module' do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength
