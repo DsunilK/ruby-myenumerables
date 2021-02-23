@@ -11,8 +11,6 @@ HIGHEST_VALUE = 9
 describe 'Enumerable Module' do
   let(:array) { Array.new(ARRAY_SIZE) { rand(LOWEST_VALUE...HIGHEST_VALUE) } }
   let!(:array_clone) { array.clone }
-  let(:block) { proc { |num| num < (LOWEST_VALUE + HIGHEST_VALUE) / 2 } }
-  let(:range) { Range.new(5, 50) }
   
   describe "RSPEC# - Method: #my_each"  do
     it '1. returns an Enumerator if no block is given' do
@@ -45,6 +43,8 @@ describe 'Enumerable Module' do
   end
 
   describe '#my_select' do
+   let(:block) { proc { |num| num < (LOWEST_VALUE + HIGHEST_VALUE) / 2 } }
+   let(:range) { Range.new(5, 50) }
     it 'returns an array containing all elements of enum for which the given block returns a true value' do
       expect(array.my_select(&block)).to eq(array.select(&block))
     end
