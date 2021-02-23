@@ -1,8 +1,10 @@
+# frozen_string_literal: true
 
-#spec/myenumerables_spec.rb
+# spec/myenumerables_spec.rb
+# rubocop:disable Metrics/BlockLength
 
 require 'rspec'
-require_relative '../myenumerables.rb'
+require_relative '../myenumerables'
 
 ARRAY_SIZE = 10
 LOWEST_VALUE = 0
@@ -14,7 +16,7 @@ describe 'Enumerable Module' do
   let(:words) { %w[string of words array] }
   let(:range) { Range.new(1, 10) }
 
-  describe "RSPEC# - Method: #my_each"  do
+  describe 'RSPEC# - Method: #my_each' do
     it '1. returns an Enumerator if no block is given' do
       expect(array.my_each).to be_an(Enumerator)
     end
@@ -22,7 +24,7 @@ describe 'Enumerable Module' do
     it '2. does not mutate the original array' do
       array.my_each { |num| num + 1 }
       expect(array).to eq(array_clone)
-    end    
+    end
 
     it '3. returns an Enumerator after applying the block given ' do
       block = proc { |x| x + 2 }
@@ -32,7 +34,7 @@ describe 'Enumerable Module' do
     end
   end
 
-  describe "RSPEC# - Method: #my_each_with_index"  do
+  describe 'RSPEC# - Method: #my_each_with_index' do
     it '1. returns an enumerator if no block is given' do
       expect(array.my_each_with_index).to be_an(Enumerator)
     end
@@ -41,12 +43,11 @@ describe 'Enumerable Module' do
       array.my_each_with_index { |num| num + 1 }
       expect(array).to eq(array_clone)
     end
-
   end
 
   describe 'RSPEC# - Method: #my_select' do
-   let(:block) { proc { |x| x > 2 } }
-   let(:range) { Range.new(1, 10) }
+    let(:block) { proc { |x| x > 2 } }
+    let(:range) { Range.new(1, 10) }
     it '1. I/P-Array: returns an Enumerator with elements for which the given block returns a true value ' do
       expect(array.my_select(&block)).to eq(array.select(&block))
     end
@@ -106,7 +107,6 @@ describe 'Enumerable Module' do
       end
     end
   end
-  
 
   describe 'RSPEC# - Method: #my_count' do
     let(:block) { proc { |x| x > 2 } }
@@ -135,18 +135,33 @@ describe 'Enumerable Module' do
       expect(array.my_map(&block)).to eq array.map(&block)
     end
 
-    it '2. does not mutate the original array' do
+    it '2. returns Enumerator after applying the inline block given to each element of enum' do
+      expect(array.my_map { |num| num < 10 }).to eq(array.map { |num| num < 10 })
+    end
+
+    it '3. I/P-Array: returns a new array with the results of running a given block' do
+      expect(array.my_map(&block)).to eq array.map(&block)
+    end
+
+    it '4. I/P-Array: returns a new array with the results of running a given block' do
+      expect(range.my_map(&block)).to eq range.map(&block)
+    end
+
+    it 'returns an Enumerator if no block is given' do
+      expect(array.my_map).to be_an(Enumerator)
+    end
+
+    it ' does not mutate the original array' do
       array.my_map { |num| num + 1 }
       expect(array).to eq(array_clone)
     end
-
   end
 
-  describe "RSPEC# - Method: #my_inject"  do
+  describe 'RSPEC# - Method: #my_inject'  do
     it '1. raises a "LocalJumpError" when no block or argument is given' do
       expect { array.my_inject }.to raise_error(LocalJumpError)
     end
-  
+
     it '2. does not mutate the original array' do
       array.my_inject { |num| num + 1 }
       expect(array).to eq(array_clone)
@@ -180,3 +195,5 @@ describe 'Enumerable Module' do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength

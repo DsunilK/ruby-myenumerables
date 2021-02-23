@@ -1,5 +1,6 @@
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
+# frozen_string_literal: true
 
+# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
 # MY ENUMERABLES
 module Enumerable
   # my_each
@@ -180,16 +181,12 @@ module Enumerable
   end
 end
 
-# p [3, 6, 10].my_inject { |sum, number| sum + number }
-# p [3, 6, 10].inject(:*)
-# p [3, 6, 10].inject
-
 def multiply_els(arr)
   # Can Provide the BLOCK
   out = (arr.my_inject { |result, element| (result * element) })
-  # p out
+  p out
 end
-numbers = [2, 4, 5]
+# numbers = [2, 4, 5]
 # multiply_els(numbers)
 
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
+# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
