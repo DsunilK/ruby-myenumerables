@@ -108,6 +108,46 @@ describe 'Enumerable Module' do
     end
   end
 
+  describe '#my_any?' do
+    let(:true_block) { proc { |num| num <= HIGHEST_VALUE } }
+    let(:false_block) { proc { |num| num > HIGHEST_VALUE } }
+    it 'returns true if the block ever returns a value other than false or nil' do
+      expect(array.my_any?(&true_block)).to eq(array.any?(&true_block))
+    end
+
+    it 'returns false if the block ever returns a value false or nil' do
+      expect(array.my_any?(&false_block)).to eq(array.any?(&false_block))
+    end
+
+    it 'does not mutate the original array' do
+      array.my_any? { |num| num + 1 }
+      expect(array).to eq(array_clone)
+    end
+
+    context 'when no block or argument is given' do
+      let(:true_array) { [nil, false, true, []] }
+      let(:false_array) { [nil, false, nil, false] }
+      it 'returns true if at least one of the collection is not false or nil' do
+        expect(true_array.my_any?).to be true_array.any?
+      end
+
+      it 'returns false if at least one of the collection is not true' do
+        expect(false_array.my_any?).to be false_array.any?
+      end
+    end
+
+    context 'when a pattern other than Regex or a Class is given' do
+      it 'returns false if none of the collection matches the pattern' do
+        expect(words.my_any?('cat')).to be words.any?('cat')
+      end
+
+      it 'returns true if any of the collection matches the pattern' do
+        words[0] = 'cat'
+        expect(words.my_any?('cat')).to be words.any?('cat')
+      end
+    end
+  end
+  
   describe 'RSPEC# - Method: #my_count' do
     let(:block) { proc { |x| x > 2 } }
     it '1. I/P-Array: returns the number of items' do
