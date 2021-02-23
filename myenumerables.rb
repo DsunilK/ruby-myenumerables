@@ -6,7 +6,7 @@ module Enumerable
   def my_each(*)
     return enum_for(:my_each) unless block_given?
 
-    my_each(&block)
+    # my_each(&block)
     arr = self if instance_of?(Array)
     arr = to_a if instance_of?(Range)
     i = 0
