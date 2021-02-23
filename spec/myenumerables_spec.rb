@@ -44,9 +44,9 @@ describe 'Enumerable Module' do
 
   end
 
-
   describe 'RSPEC# - Method: #my_select' do
-    block = proc { |x| x > 2 }
+   let(:block) { proc { |x| x > 2 } }
+   let(:range) { Range.new(1, 10) }
     it '1. I/P-Array: returns an Enumerator with elements for which the given block returns a true value ' do
       expect(array.my_select(&block)).to eq(array.select(&block))
     end
