@@ -2,11 +2,10 @@
 
 # MY ENUMERABLES
 module Enumerable
-  # each
+  # my_each
   def my_each(*)
     return enum_for(:my_each) unless block_given?
 
-    # my_each(&block)
     arr = self if instance_of?(Array)
     arr = to_a if instance_of?(Range)
     i = 0
@@ -181,12 +180,16 @@ module Enumerable
   end
 end
 
+# p [3, 6, 10].my_inject { |sum, number| sum + number }
+# p [3, 6, 10].inject(:*)
+# p [3, 6, 10].inject
+
 def multiply_els(arr)
   # Can Provide the BLOCK
   out = (arr.my_inject { |result, element| (result * element) })
-  p out
+  # p out
 end
 numbers = [2, 4, 5]
-multiply_els(numbers)
+# multiply_els(numbers)
 
 # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
