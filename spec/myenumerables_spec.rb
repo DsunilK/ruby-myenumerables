@@ -1,6 +1,6 @@
-#spec/myenuerables_spec.rb
 
 #spec/myenumerables_spec.rb
+
 require 'rspec'
 require_relative '../myenumerables.rb'
 
@@ -24,4 +24,18 @@ describe 'Enumerable module' do
     end    
 
   end
+
+  describe '#my_each_with_index' do
+
+    it 'returns an enumerator if no block is given' do
+      expect(array.my_each_with_index).to be_an(Enumerator)
+    end
+
+    it 'does not mutate the original array' do
+      array.my_each_with_index { |num| num + 1 }
+      expect(array).to eq(array_clone)
+    end
+
+  end
+
 end
