@@ -147,6 +147,45 @@ describe 'Enumerable Module' do
       end
     end
   end
+
+  describe '#my_none?' do
+    let(:true_block) { proc { |num| num > HIGHEST_VALUE } }
+    let(:false_block) { proc { |num| num <= HIGHEST_VALUE } }
+    let(:true_array) { [nil, false, true, []] }
+    let(:false_array) { [nil, false, nil, false] }
+    it 'returns true if the block never returns true for all elements' do
+      expect(array.my_none?(&true_block)).to eq(array.none?(&true_block))
+    end
+
+    it 'returns false if the block ever returns true for all elements' do
+      expect(array.my_none?(&false_block)).to eq(array.none?(&false_block))
+    end
+
+    it 'does not mutate the original array' do
+      array.my_none? { |num| num + 1 }
+      expect(array).to eq(array_clone)
+    end
+
+    context 'when no block or argument is given' do
+      it 'returns true only if none of the collection members is true' do
+        expect(false_array.my_none?).to be true
+      end
+
+      it 'returns false only if one of the collection members is true' do
+        expect(true_array.my_none?).to be false
+      end
+    end
+
+    context 'when a pattern other than Regex or a Class is given' do
+      it 'returns true only if none of the collection matches the pattern' do
+        expect(words.my_none?(5)).to be words.none?(5)
+      end
+      it 'returns false only if one of the collection matches the pattern' do
+        words[0] = 5
+        expect(words.my_none?(5)).to be words.none?(5)
+      end
+    end
+  end
   
   describe 'RSPEC# - Method: #my_count' do
     let(:block) { proc { |x| x > 2 } }
