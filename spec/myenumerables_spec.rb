@@ -65,53 +65,73 @@ describe 'Enumerable Module' do
     end
   end
 
-  describe '#my_all?' do
+  describe 'RSPEC# - Method: #my_all?' do
     let(:true_block) { proc { |num| num <= HIGHEST_VALUE } }
     let(:false_block) { proc { |num| num > HIGHEST_VALUE } }
 
-    it 'returns true if the block never returns false or nil' do
+    it '1. returns true if the block accepts all elements' do
       expect(array.my_all?(&true_block)).to eq(array.all?(&true_block))
     end
 
-    it 'returns false if the block returns false or nil' do
+    it '2. returns false if the block rejects all elements' do
       expect(array.my_all?(&false_block)).to eq(array.all?(&false_block))
     end
 
-    it 'does not mutate the original array' do
+    it '3. does not mutate the original array' do
       array.my_all? { |num| num + 1 }
       expect(array).to eq(array_clone)
     end
 
-    context 'when no block or argument is given' do
+    context 'A. when no block or argument is given' do
       let(:true_array) { [1, true, 'hi', []] }
       let(:false_array) { [1, false, 'hi', []] }
-      it 'returns true when none of the collection members are false or nil' do
+      it '1. returns true when none of the collection members are false or nil' do
         expect(true_array.my_all?).to be true_array.all?
       end
 
-      it 'returns false when one of the collection members are false or nil' do
+      it '2. returns false when one of the collection members are false or nil' do
         expect(false_array.my_all?).to be false_array.all?
       end
     end
 
-    context 'when a pattern other than Regex or a Class is given' do
-      it 'returns true if all of the collection matches the pattern' do
+    context 'B. When a condition is given' do
+      it '1. returns true if all of the collection matches the condition' do
         array = []
         5.times { array << 3 }
         expect(array.my_all?(3)).to be array.all?(3)
       end
 
-      it 'returns false if any of the collection does not match the pattern' do
+      it '2. returns false if any of the collection does not match the condition' do
         expect(array.my_all?(3)).to be array.all?(3)
       end
     end
-
   end
   
+
+  describe 'RSPEC# - Method: #my_count' do
+    let(:block) { proc { |x| x > 2 } }
+    it '1. I/P-Array: returns the number of items' do
+      expect(array.my_count).to eq array.count
+    end
+
+    it '2. I/P-Range: returns the number of items' do
+      expect(range.my_count).to eq range.count
+    end
+
+    it '3. counts the number of elements yielding a true value if a block is given' do
+      expect(array.my_count(&block)).to eq array.count(&block)
+    end
+
+    it '4. does not mutate the original array' do
+      array.my_count { |num| num + 1 }
+      expect(array).to eq(array_clone)
+    end
+  end
+
   describe 'RSPEC# - Method: #my_map' do
     let(:block) { proc { |x| x + 2 } }
 
-    it '1. Returns Enumerator after applying the block given to each element of enum' do
+    it '1. returns Enumerator after applying the block given to each element of enum' do
       expect(array.my_map(&block)).to eq array.map(&block)
     end
 
