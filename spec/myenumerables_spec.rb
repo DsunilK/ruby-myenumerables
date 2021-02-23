@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
 # spec/myenumerables_spec.rb
-# rubocop:disable Metrics/BlockLength
 
 require 'rspec'
 require_relative '../myenumerables'
@@ -236,7 +233,7 @@ describe 'Enumerable Module' do
     end
   end
 
-  describe 'RSPEC# - Method: #my_inject'  do
+  describe 'RSPEC# - Method: #my_inject' do
     it '1. raises a "LocalJumpError" when no block or argument is given' do
       expect { array.my_inject }.to raise_error(LocalJumpError)
     end
@@ -274,5 +271,3 @@ describe 'Enumerable Module' do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength

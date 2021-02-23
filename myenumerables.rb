@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
 # MY ENUMERABLES
 module Enumerable
   # my_each
@@ -189,4 +187,4 @@ end
 # numbers = [2, 4, 5]
 # multiply_els(numbers)
 
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/ModuleLength
